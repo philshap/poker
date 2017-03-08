@@ -26,13 +26,13 @@ public enum HandRank {
 
         @Override
         public int compareSameHand(Hand hand, Hand otherHand) {
-            return hand.highCard().compareTo(otherHand.highCard());
+            return Hand.compareHighCards(hand, otherHand);
         }
     },
     FOUR_OF_A_KIND("Four of a Kind") {
         @Override
         boolean match(Hand hand) {
-            return matchOfAKind(hand, 4);
+            return hand.matchRank(4) != null;
         }
 
         @Override
@@ -79,13 +79,13 @@ public enum HandRank {
 
         @Override
         public int compareSameHand(Hand hand, Hand otherHand) {
-            return hand.highCard().cardRank.compareTo(otherHand.highCard().cardRank);
+            return Hand.compareHighCards(hand, otherHand);
         }
     },
     THREE_OF_A_KIND("Three of a Kind") {
         @Override
         boolean match(Hand hand) {
-            return matchOfAKind(hand, 3);
+            return hand.matchRank(3) != null;
         }
 
         @Override
@@ -120,7 +120,7 @@ public enum HandRank {
     ONE_PAIR("One Pair") {
         @Override
         boolean match(Hand hand) {
-            return matchOfAKind(hand, 2);
+            return hand.matchRank(2) != null;
         }
 
         @Override
@@ -181,10 +181,6 @@ public enum HandRank {
 
     static private int compareFirstCardRank(Set<Card> matchCardsOne, Set<Card> otherMatchCardsOne) {
         return matchCardsOne.iterator().next().cardRank.compareTo(otherMatchCardsOne.iterator().next().cardRank);
-    }
-
-    static private boolean matchOfAKind(Hand hand, int numCards) {
-        return hand.matchRank(numCards) != null;
     }
 
     static private int compareOfAKind(Hand hand, Hand otherHand, int numCards) {

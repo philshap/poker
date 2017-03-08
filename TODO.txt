@@ -1,0 +1,10 @@
+- modify combine util to create arrays directly instead of lists
+- possibly unwrap lambda in Dealer.findBestHand to avoid array for state
+
+x Hand.matchSuit() only needs a single loop
+x HandRank.STRAIGHT_FLUSH.compareSameHand() needs to compare rank, not card
+x instead of:
+    hand.highCard().cardRank.compareTo(otherHand.highCard().cardRank)
+  could use:
+    Hand.compareHighCards(hand, otherHand);
+x can inline HandRank.matchOfAKind()

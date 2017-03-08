@@ -40,19 +40,14 @@ public class Hand implements Comparable<Hand> {
      * @return true if this hand matches
      */
     boolean matchSuit() {
-        for (Card card : cards) {
-            Suit suit = card.suit;
-            Set<Card> match = new HashSet<>();
-            for (Card matchCard : cards) {
-                if (matchCard.suit == suit) {
-                    match.add(matchCard);
-                    if (match.size() == cards.length) {
-                        return true;
-                    }
-                }
+        Suit suit = null;
+        for (Card matchCard : cards) {
+            if (suit != null && matchCard.suit != suit) {
+                return false;
             }
+            suit = matchCard.suit;
         }
-        return false;
+        return true;
     }
 
     /**
