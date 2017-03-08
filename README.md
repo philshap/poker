@@ -1,2 +1,2 @@
 # poker
-https://travis-ci.org/philshap/poker.svg?branch=master
+![alt](https://travis-ci.org/philshap/poker.svg?branch=master)
