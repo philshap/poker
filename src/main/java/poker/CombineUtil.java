@@ -6,7 +6,11 @@ import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class CombineUtil {
+/**
+ * A utility class for combination operations.
+ */
+public enum CombineUtil {
+    _DUMMY;
 
     /**
      * Given a list of elements E, generate a stream of all combinations of these elements of length size.

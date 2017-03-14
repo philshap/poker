@@ -8,8 +8,8 @@ public class HandTest {
 
     private static final String JSON_TEST_HAND = "[\"JH\", \"4C\", \"4S\", \"JC\", \"9H\"]";
     private static final Hand EXPECTED_HAND =
-        new Hand(new Card(CardRank.JACK, Suit.HEART), new Card(CardRank.FOUR, Suit.CLUB),
-            new Card(CardRank.FOUR, Suit.SPADE), new Card(CardRank.JACK, Suit.CLUB), new Card(CardRank.NINE, Suit.HEART));
+        new Hand(new Card(FaceValue.JACK, Suit.HEART), new Card(FaceValue.FOUR, Suit.CLUB),
+            new Card(FaceValue.FOUR, Suit.SPADE), new Card(FaceValue.JACK, Suit.CLUB), new Card(FaceValue.NINE, Suit.HEART));
 
     @Test
     public void testFromJson() throws Exception {
@@ -23,10 +23,16 @@ public class HandTest {
 
     @Test
     public void testCompareHighCards() throws Exception {
-        Hand hand1 = Hand.fromJsonArray("[\"JH\", \"4C\", \"4S\", \"JC\", \"9H\"]");
-        assertEquals(0, Hand.compareHighCards(hand1, hand1));
+        Hand hand1 = Hand.fromJsonArray("[\"JH\", \"4C\", \"3S\", \"KC\", \"9H\"]");
         Hand hand2 = Hand.fromJsonArray("[\"JH\", \"4C\", \"3S\", \"JC\", \"9H\"]");
-        assertEquals(1, (int) Math.signum(Hand.compareHighCards(hand1, hand2)));
+        assertEquals(-1, (int) Math.signum(hand1.compareTo(hand2)));
+    }
+
+    @Test
+    public void testCompareHighCardsOnePair() throws Exception {
+        Hand hand1 = Hand.fromJsonArray("[\"AH\", \"AC\", \"3S\", \"2C\", \"4H\"]");
+        Hand hand2 = Hand.fromJsonArray("[\"KH\", \"KC\", \"10S\", \"JC\", \"QH\"]");
+        assertEquals(1, (int) Math.signum(hand1.compareTo(hand2)));
     }
 
     @Test
@@ -57,6 +63,6 @@ public class HandTest {
         System.out.println("  " + onePair);
         System.out.println("  " + threePair);
         Hand bestHand = Hand.findBestHand(onePair, fullHouse, threePair);
-        System.out.println("The best hand is " + bestHand + ", which is a " + HandRank.rankHand(bestHand));
+        System.out.println("The best hand is " + bestHand);
     }
 }

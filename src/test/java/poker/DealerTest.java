@@ -19,6 +19,6 @@ public class DealerTest {
 
         System.out.println("==== #3 ====");
         System.out.println("From the deck of cards: " + Arrays.toString(deck));
-        System.out.println("The best hand is " + hand + ", which is a " + HandRank.rankHand(hand));
+        System.out.println("The best hand is " + hand);
     }
 }

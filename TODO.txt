@@ -1,6 +1,14 @@
-- modify combine util to create arrays directly instead of lists
-- possibly unwrap lambda in Dealer.findBestHand to avoid array for state
+- possibly normalize use of arrays vs Collections
+- add more tests
 
+x add javadoc
+x rename CardRank to FaceValue to avoid confusion with HandRank
+x Fix score; value is broken because of the way high card values are stored. E.g. consider (A, A, 2, 3, 4). This will
+  score lower than (K, K, 10, J, K). This can be fixed by splitting the score into two values; the rank computed
+  score and the face value score, which doesn't include any of the rank cards.
+x create wrapper class Ranking to encapsulate hand score, description and rank
+x generate hand description string in HandRank.match()
+x avoid redundant work in HandRank.compareSameHand() by generating hand score in HandRank.match()
 x Hand.matchSuit() only needs a single loop
 x HandRank.STRAIGHT_FLUSH.compareSameHand() needs to compare rank, not card
 x instead of:

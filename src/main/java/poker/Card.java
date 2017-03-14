@@ -5,26 +5,32 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import java.util.Objects;
 
 /**
- * A card in a deck. A card is represented by its rank (face value) and suit.
+ * A card in a deck. A card is represented by its face value and suit.
  */
 public class Card implements Comparable<Card> {
-    public final CardRank cardRank;
-    public final Suit suit;
+    /** The face value. */
+    final FaceValue faceValue;
+    /** The suit. */
+    final Suit suit;
 
-    public Card(CardRank cardRank, Suit suit) {
-        this.cardRank = cardRank;
+    Card(FaceValue faceValue, Suit suit) {
+        this.faceValue = faceValue;
         this.suit = suit;
     }
 
+    public FaceValue getFaceValue() {
+        return faceValue;
+    }
+
     @JsonCreator
-    public Card(String jsonData) {
-        this(CardRank.fromJson(jsonData.substring(0, jsonData.length() - 1)),
+    Card(String jsonData) {
+        this(FaceValue.fromJson(jsonData.substring(0, jsonData.length() - 1)),
             Suit.fromJson(jsonData.substring(jsonData.length() - 1)));
     }
 
     @Override
     public String toString() {
-        return cardRank.visibleName + " of " + suit.visibleName;
+        return faceValue + " of " + suit;
     }
 
     @Override
@@ -36,17 +42,17 @@ public class Card implements Comparable<Card> {
             return false;
         }
         Card card = (Card) o;
-        return cardRank == card.cardRank && suit == card.suit;
+        return faceValue == card.faceValue && suit == card.suit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cardRank, suit);
+        return Objects.hash(faceValue, suit);
     }
 
     @Override
     public int compareTo(Card o) {
-        int rankCompare = o.cardRank.ordinal() - cardRank.ordinal();
+        int rankCompare = o.faceValue.ordinal() - faceValue.ordinal();
         if (rankCompare != 0) {
             return rankCompare;
         }
